@@ -23,10 +23,20 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
-
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel(),
+    onSessionExpired: () -> Unit
+) {
     val lancamentos by viewModel.lancamentos.collectAsState()
     val erro by viewModel.erro.collectAsState()
+
+    val sessionExpired by viewModel.sessionExpired.collectAsState()
+
+    LaunchedEffect(sessionExpired) {
+        if (sessionExpired) {
+            onSessionExpired()
+        }
+    }
 
     Column(
         modifier = Modifier

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.financecontrolapp.data.TokenManager
 import com.example.financecontrolapp.ui.screens.HomeScreen
 import com.example.financecontrolapp.ui.screens.LoginScreen
 import com.example.financecontrolapp.ui.theme.FinanceControlAppTheme
@@ -17,6 +18,13 @@ import com.example.financecontrolapp.ui.theme.FinanceControlAppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val tokenManager = TokenManager(this)
+
+        val tokenSalvo = tokenManager.getToken()
+
+        val rotaInicial = if (tokenSalvo != null) "home" else "login"
+
         setContent {
             FinanceControlAppTheme {
                 Surface(
@@ -25,9 +33,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    NavHost(navController = navController, startDestination = "login") {
+                    NavHost(navController = navController, startDestination = rotaInicial) {
 
-                        // Rota 1: Login
                         composable("login") {
                             LoginScreen(
                                 onLoginSuccess = {
@@ -39,7 +46,15 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("home") {
-                            HomeScreen()
+                            HomeScreen(
+                                onSessionExpired = {
+                                    tokenManager.clearToken()
+
+                                    navController.navigate("login") {
+                                        popUpTo(0) { inclusive = true }
+                                    }
+                                }
+                            )
                         }
                     }
                 }
