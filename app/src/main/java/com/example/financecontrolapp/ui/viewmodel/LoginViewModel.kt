@@ -42,7 +42,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             try {
                 val request = LoginRequest(email.value, senha.value)
-                val response = RetrofitClient.apiService.login(request)
+                val response = RetrofitClient.getApiService(getApplication()).login(request)
 
                 Log.d("LoginViewModel", "Sucesso! Token: ${response.token}")
                 _loginStatus.value = "Login realizado com sucesso!"
