@@ -1,5 +1,6 @@
 package com.example.financecontrolapp.network
 
+import com.example.financecontrolapp.data.LancamentoRequest
 import com.example.financecontrolapp.data.LancamentoResponse
 import com.example.financecontrolapp.data.LoginRequest
 import com.example.financecontrolapp.data.LoginResponse
@@ -15,4 +16,7 @@ interface FinanceApiService {
 
     @GET("lancamentos")
     suspend fun getLancamentos(): List<LancamentoResponse>
+
+    @POST("lancamentos")
+    suspend fun criarLancamento(@Body request: LancamentoRequest): LancamentoResponse
 }
