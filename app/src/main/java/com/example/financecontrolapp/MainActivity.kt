@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
 
                         composable("home") {
                             HomeScreen(
-                                onSessionExpired = {
+                                onLogout = {
                                     tokenManager.clearToken()
 
                                     navController.navigate("login") {
