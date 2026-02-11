@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.financecontrolapp.data.TokenManager
 import com.example.financecontrolapp.ui.screens.HomeScreen
 import com.example.financecontrolapp.ui.screens.LoginScreen
+import com.example.financecontrolapp.ui.screens.NovoLancamentoScreen
 import com.example.financecontrolapp.ui.theme.FinanceControlAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,10 +50,22 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(
                                 onLogout = {
                                     tokenManager.clearToken()
-
                                     navController.navigate("login") {
-                                        popUpTo(0) { inclusive = true }
+                                        popUpTo(0) {
+                                            inclusive = true
+                                        }
                                     }
+                                },
+                                onNovoLancamento = {
+                                    navController.navigate("novo_lancamento")
+                                }
+                            )
+                        }
+
+                        composable("novo_lancamento") {
+                            NovoLancamentoScreen(
+                                onVoltar = {
+                                    navController.popBackStack()
                                 }
                             )
                         }
