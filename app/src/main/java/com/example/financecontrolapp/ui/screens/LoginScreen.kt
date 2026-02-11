@@ -11,11 +11,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.financecontrolapp.ui.viewmodel.LoginViewModel
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(
+    viewModel: LoginViewModel = viewModel(),
+    onLoginSuccess: () -> Unit) {
     val email by viewModel.email.collectAsState()
     val senha by viewModel.senha.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val loginStatus by viewModel.loginStatus.collectAsState()
+
+    LaunchedEffect(loginStatus) {
+        if (loginStatus == "Login realizado com sucesso!") {
+            onLoginSuccess()
+        }
+    }
 
     Column(
         modifier = Modifier
