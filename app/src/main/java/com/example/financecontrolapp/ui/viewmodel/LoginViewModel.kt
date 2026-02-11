@@ -1,17 +1,20 @@
 package com.example.financecontrolapp.ui.viewmodel
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.financecontrolapp.data.LoginRequest
+import com.example.financecontrolapp.data.TokenManager
 import com.example.financecontrolapp.network.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val tokenManager = TokenManager(application)
     private val _email = MutableStateFlow("")
     val email: StateFlow<String> = _email.asStateFlow()
 
@@ -44,7 +47,7 @@ class LoginViewModel : ViewModel() {
                 Log.d("LoginViewModel", "Sucesso! Token: ${response.token}")
                 _loginStatus.value = "Login realizado com sucesso!"
 
-                // TODO: Salvar o token e navegar para a próxima tela
+                tokenManager.saveToken(response.token)
 
             } catch (e: Exception) {
                 Log.e("LoginViewModel", "Erro: ${e.message}")
