@@ -26,7 +26,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         buscarLancamentos()
     }
 
-    private fun buscarLancamentos() {
+    fun buscarLancamentos() {
         viewModelScope.launch {
             try {
                 val api = RetrofitClient.getApiService(getApplication())
