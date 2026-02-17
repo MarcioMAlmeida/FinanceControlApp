@@ -28,11 +28,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun buscarLancamentos() {
         viewModelScope.launch {
+            _erro.value = null
             try {
                 val api = RetrofitClient.getApiService(getApplication())
                 val resultado = api.getLancamentos()
                 _lancamentos.value = resultado
-
             } catch (e: HttpException) {
                 if (e.code() == 401 || e.code() == 403) {
                     _sessionExpired.value = true
@@ -41,6 +41,27 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } catch (e: Exception) {
                 _erro.value = "Erro de conexão: Verifique sua internet."
+            }
+        }
+    }
+
+    fun deletarLancamento(id: Long) {
+        viewModelScope.launch {
+            _erro.value = null
+            try {
+                val api = RetrofitClient.getApiService(getApplication())
+                val response = api.deletarLancamento(id)
+
+                if (response.isSuccessful) {
+                    val listaAtual = _lancamentos.value.toMutableList()
+                    listaAtual.removeAll { it.id == id }
+                    _lancamentos.value = listaAtual
+                } else {
+                    _erro.value = "Erro ao apagar: Código ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _erro.value = "Erro ao apagar: ${e.message}"
             }
         }
     }

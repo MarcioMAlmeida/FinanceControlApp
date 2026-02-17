@@ -7,6 +7,9 @@ import com.example.financecontrolapp.data.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.DELETE
+import retrofit2.http.Path
+import retrofit2.Response
 
 
 interface FinanceApiService {
@@ -19,4 +22,7 @@ interface FinanceApiService {
 
     @POST("lancamentos")
     suspend fun criarLancamento(@Body request: LancamentoRequest): LancamentoResponse
+
+    @DELETE("lancamentos/{id}")
+    suspend fun deletarLancamento(@Path("id") id: Long): Response<Unit>
 }
