@@ -123,6 +123,11 @@ fun HomeScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     contentPadding = PaddingValues(bottom = 80.dp)
                 ) {
+                    item {
+                        com.example.financecontrolapp.ui.components.DashboardCard(lancamentos = lancamentos)
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+
                     items(
                         items = lancamentos,
                         key = { it.id }
