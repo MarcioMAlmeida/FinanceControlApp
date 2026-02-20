@@ -42,6 +42,9 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("home") {
                                         popUpTo("login") { inclusive = true }
                                     }
+                                },
+                                onNavigateToCadastro = {
+                                    navController.navigate("cadastro")
                                 }
                             )
                         }
@@ -65,6 +68,15 @@ class MainActivity : ComponentActivity() {
                         composable("novo_lancamento") {
                             NovoLancamentoScreen(
                                 onVoltar = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+
+                        composable("cadastro") {
+                            com.example.financecontrolapp.ui.screens.CadastroScreen(
+                                onVoltar = { navController.popBackStack() },
+                                onCadastroSucesso = {
                                     navController.popBackStack()
                                 }
                             )

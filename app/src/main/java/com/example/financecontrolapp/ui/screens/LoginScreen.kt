@@ -13,7 +13,9 @@ import com.example.financecontrolapp.ui.viewmodel.LoginViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = viewModel(),
-    onLoginSuccess: () -> Unit) {
+    onLoginSuccess: () -> Unit,
+    onNavigateToCadastro: () -> Unit
+) {
     val email by viewModel.email.collectAsState()
     val senha by viewModel.senha.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -73,6 +75,12 @@ fun LoginScreen(
         loginStatus?.let { status ->
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = status, color = MaterialTheme.colorScheme.primary)
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextButton(onClick = onNavigateToCadastro) {
+            Text("Não tem uma conta? Registre-se")
         }
     }
 }

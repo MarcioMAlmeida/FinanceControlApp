@@ -1,5 +1,6 @@
 package com.example.financecontrolapp.network
 
+import com.example.financecontrolapp.data.CadastroRequest
 import com.example.financecontrolapp.data.LancamentoRequest
 import com.example.financecontrolapp.data.LancamentoResponse
 import com.example.financecontrolapp.data.LoginRequest
@@ -25,4 +26,7 @@ interface FinanceApiService {
 
     @DELETE("lancamentos/{id}")
     suspend fun deletarLancamento(@Path("id") id: Long): Response<Unit>
+
+    @POST("usuarios")
+    suspend fun cadastrarUsuario(@Body request: CadastroRequest): retrofit2.Response<Unit>
 }
