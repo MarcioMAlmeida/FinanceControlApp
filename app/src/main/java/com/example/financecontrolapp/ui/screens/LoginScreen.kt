@@ -14,7 +14,8 @@ import com.example.financecontrolapp.ui.viewmodel.LoginViewModel
 fun LoginScreen(
     viewModel: LoginViewModel = viewModel(),
     onLoginSuccess: () -> Unit,
-    onNavigateToCadastro: () -> Unit
+    onNavigateToCadastro: () -> Unit,
+    onNavigateToEsqueciSenha: () -> Unit
 ) {
     val email by viewModel.email.collectAsState()
     val senha by viewModel.senha.collectAsState()
@@ -70,6 +71,12 @@ fun LoginScreen(
             } else {
                 Text("Entrar")
             }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        TextButton(onClick = onNavigateToEsqueciSenha) {
+            Text("Esqueci minha senha")
         }
 
         loginStatus?.let { status ->

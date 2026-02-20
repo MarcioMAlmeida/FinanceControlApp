@@ -45,6 +45,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onNavigateToCadastro = {
                                     navController.navigate("cadastro")
+                                },
+                                onNavigateToEsqueciSenha = {
+                                    navController.navigate("esqueci_senha")
                                 }
                             )
                         }
@@ -79,6 +82,12 @@ class MainActivity : ComponentActivity() {
                                 onCadastroSucesso = {
                                     navController.popBackStack()
                                 }
+                            )
+                        }
+
+                        composable("esqueci_senha") {
+                            com.example.financecontrolapp.ui.screens.EsqueciSenhaScreen(
+                                onVoltar = { navController.popBackStack() }
                             )
                         }
                     }
