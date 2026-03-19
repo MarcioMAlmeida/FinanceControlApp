@@ -6,6 +6,7 @@ import com.example.financecontrolapp.data.LancamentoRequest
 import com.example.financecontrolapp.data.LancamentoResponse
 import com.example.financecontrolapp.data.LoginRequest
 import com.example.financecontrolapp.data.LoginResponse
+import com.example.financecontrolapp.data.RedefinirSenhaRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -33,4 +34,7 @@ interface FinanceApiService {
 
     @POST("usuarios/esqueci-senha")
     suspend fun recuperarSenha(@Body request: EsqueciSenhaRequest): retrofit2.Response<Unit>
+
+    @POST("usuarios/redefinir-senha")
+    suspend fun redefinirSenha(@Body request: RedefinirSenhaRequest): Response<Unit>
 }

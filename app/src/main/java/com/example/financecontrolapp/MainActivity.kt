@@ -87,7 +87,23 @@ class MainActivity : ComponentActivity() {
 
                         composable("esqueci_senha") {
                             com.example.financecontrolapp.ui.screens.EsqueciSenhaScreen(
+                                onNavigateToRedefinir = { emailDigitado ->
+                                    navController.navigate("redefinir_senha/$emailDigitado")
+                                },
                                 onVoltar = { navController.popBackStack() }
+                            )
+                        }
+
+                        composable("redefinir_senha/{email}") { backStackEntry ->
+                            val emailRecuperacao = backStackEntry.arguments?.getString("email") ?: ""
+
+                            com.example.financecontrolapp.ui.screens.RedefinirSenhaScreen(
+                                emailRecuperacao = emailRecuperacao,
+                                onNavigateToLogin = {
+                                    navController.navigate("login") {
+                                        popUpTo("login") { inclusive = true }
+                                    }
+                                }
                             )
                         }
                     }

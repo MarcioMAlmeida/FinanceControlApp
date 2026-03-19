@@ -18,12 +18,19 @@ import com.example.financecontrolapp.ui.viewmodel.EsqueciSenhaViewModel
 @Composable
 fun EsqueciSenhaScreen(
     viewModel: EsqueciSenhaViewModel = viewModel(),
+    onNavigateToRedefinir: (String) -> Unit,
     onVoltar: () -> Unit
 ) {
     val email by viewModel.email.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val sucesso by viewModel.sucesso.collectAsState()
     val erro by viewModel.erro.collectAsState()
+
+    LaunchedEffect(sucesso) {
+        if (sucesso) {
+            onNavigateToRedefinir(email)
+        }
+    }
 
     Scaffold(
         topBar = {
